@@ -3,30 +3,84 @@
 #include <string>
 #include <cstddef>
 #include <sstream>
+#include <array>
+#include <map>
 
-static constexpr char TEST_FILE_PATH[] = "input/test_input.txt";
+static constexpr char TEST_FILE_PATH1[] = "input/test_input.txt";
+static constexpr char TEST_FILE_PATH2[] = "input/test_input_2.txt";
 static constexpr char FILE_PATH[] = "input/input.txt";
-static constexpr char DIGITS[] = "0123456789";
+
+using DigitMap = std::map<std::string, unsigned int>;
+
+static const DigitMap NUMBERS_MAP = {
+    {"one", 1},
+    {"two", 2},
+    {"three", 3},
+    {"four", 4},
+    {"five", 5},
+    {"six", 6},
+    {"seven", 7},
+    {"eight", 8},
+    {"nine", 9},
+    {"0", 0},
+    {"1", 1},
+    {"2", 2},
+    {"3", 3},
+    {"4", 4},
+    {"5", 5},
+    {"6", 6},
+    {"7", 7},
+    {"8", 8},
+    {"9", 9},
+};
 
 class CalibrationRecoverer {
 public:
     CalibrationRecoverer(const std::string& filePath) : _filePath{filePath} {}
 
+    unsigned int FindFirstNumber(const std::string& line) const {
+        size_t retIndex = line.npos;
+        unsigned int foundNumber{0};
+
+        for (const auto& element : NUMBERS_MAP) {
+            const auto index = line.find(element.first);
+
+            if (index != line.npos && index <= retIndex) {
+                retIndex = index;
+                foundNumber = element.second;
+            }
+        }
+        
+        return foundNumber; 
+    }
+
+    unsigned int FindLastNumber(const std::string& line) const {
+        size_t retIndex = 0;
+        unsigned int foundNumber{0};
+
+        for (const auto& element : NUMBERS_MAP) {
+            const auto index = line.rfind(element.first);
+
+            if (index != line.npos && index >= retIndex) {
+                retIndex = index;
+                foundNumber = element.second;
+            }
+        }
+        
+        return foundNumber; 
+    }
+
     unsigned int RecoverCalibrationFromLine(const std::string& line) const {
-        const auto first{line.find_first_of(DIGITS)};
-        const auto last{line.find_last_of(DIGITS)};
+        const auto first = FindFirstNumber(line);
+        const auto last = FindLastNumber(line);
 
-        const char firstChar = line[first];
-        const char lastChar = line[last];
-
-        std::cout << "First: " << firstChar << ", last: " << lastChar << std::endl;
+        std::cout << "First: " << first << ", last: " << last << std::endl;
         
         std::stringstream ss;
-        ss << firstChar << lastChar;
+        ss << first << last;
         const std::string code = ss.str();
         return std::stoi(code);
     }
-
 
     bool ParseFileContentAndUpdateCalibration(std::ifstream& file) {
         bool success{false};
