@@ -1,0 +1,1 @@
+constexpr char ProgramName[] = "Day";
