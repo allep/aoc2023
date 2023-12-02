@@ -11,6 +11,10 @@ public:
   void Reset();
 
 private:
-  std::vector<std::string> _records{};
-  std::map<std::string, unsigned int> _configuration{};
+  void ParseRecords();
+
+private:
+  std::vector<std::string> records{};
+  std::vector<std::string> validRecords{};
+  std::map<std::string, unsigned int> configuration{};
 };
