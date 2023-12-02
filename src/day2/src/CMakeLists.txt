@@ -12,7 +12,9 @@ target_compile_features(day2 PUBLIC cxx_std_20)
 
 enable_testing()
 
-add_executable(main_test test/main_test.cpp)
+add_executable(main_test main_test.cpp GameValidator.cpp)
+target_include_directories(${PROJECT_NAME}
+	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(main_test GTest::gtest_main)
 
 # Simple naive test: it runs main and checks return code.
