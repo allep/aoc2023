@@ -6,6 +6,9 @@ TEST(GameValidatorTest, ReferenceInputTest) {
   GameValidator validator{{"foo", "bar"}};
   validator.ValidateRecordsAgainstConfig({});
   const auto idSum = validator.GetIDsSum();
+
+  EXPECT_EQ(idSum, 8);
+
   validator.Reset();
 
   // EXPECT_STRNE("hello", "world");
