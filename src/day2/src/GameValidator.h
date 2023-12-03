@@ -15,15 +15,6 @@ public:
   void Reset();
 
 private:
-  GameRecord GetParsedRecord(const std::string_view record) const;
-  unsigned int GetParsedGameID(const std::string_view record) const;
-  std::vector<RevealedSet>
-  GetParsedRevealedSets(const std::string_view record) const;
-  std::vector<RevealedSet>
-  ParseRevealedSetsFromRecord(const std::string_view record,
-                              size_t setStart) const;
-
-private:
   std::vector<GameRecord> records{};
   std::vector<GameRecord> validRecords{};
   std::map<std::string, unsigned int> configuration{};
