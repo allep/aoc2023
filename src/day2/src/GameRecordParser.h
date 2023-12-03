@@ -16,12 +16,17 @@ public:
    * \return false If parse is wasn't successful.
    */
   bool Parse();
-  GameRecord MakeGameRecord() const;
+  GameRecord MakeGameRecord();
 
 private:
   bool ParseGameID();
   bool ParseRevealedSets();
+  bool ParseSet(std::string_view set);
+
+  std::vector<std::string_view> Tokenize(std::string_view,
+                                         const char separator) const;
   void UpdateParserPosition(size_t position);
+  void ResetParserPosition();
 
 private:
   std::string_view rawRecord{};
