@@ -36,6 +36,16 @@ void GameValidator::ValidateRecordsAgainstConfig(
   }
 }
 
+unsigned int GameValidator::GetNumRecords() const {
+  // force newline
+  return records.size();
+}
+
+unsigned int GameValidator::GetNumValidRecords() const {
+  // force newline
+  return validRecords.size();
+}
+
 unsigned int GameValidator::GetIDsSum() const {
   auto IDsSum{0};
 
