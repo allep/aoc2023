@@ -5,7 +5,8 @@
 #include "GameRecordParser.h"
 #include "GameValidator.h"
 
-GameValidator::GameValidator(std::vector<std::string> &&inRecords) {
+GameValidator::GameValidator(const std::vector<std::string> &inRecords) {
+  Reset();
   for (const auto &rawRecord : inRecords) {
     GameRecordParser parser{rawRecord};
     if (parser.Parse()) {
@@ -24,7 +25,7 @@ void GameValidator::ValidateRecordsAgainstConfig(
       const auto type = constraints.first;
       const auto maxNumber = constraints.second;
 
-      if (record.GetNumberByType(type) > maxNumber) {
+      if (record.GetMaxCubeNumberPerType(type) > maxNumber) {
         isRecordValid = false;
         break;
       }

@@ -10,7 +10,8 @@ void GameRecord::AddRevealedSet(RevealedSet &&revealedSet) {
 
 unsigned int GameRecord::GetGameID() const { return gameID; }
 
-unsigned int GameRecord::GetNumberByType(const std::string &type) const {
+unsigned int
+GameRecord::GetMaxCubeNumberPerType(const std::string &type) const {
   unsigned int maxNumber{0};
   for (const auto &entry : revealedSets) {
 

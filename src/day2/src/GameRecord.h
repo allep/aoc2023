@@ -11,7 +11,7 @@ public:
   GameRecord(unsigned int gameID);
   void AddRevealedSet(RevealedSet &&revealedSet);
   unsigned int GetGameID() const;
-  unsigned int GetNumberByType(const std::string &type) const;
+  unsigned int GetMaxCubeNumberPerType(const std::string &type) const;
 
 private:
   unsigned int gameID{};

@@ -8,7 +8,7 @@
 #include "GameRecord.h"
 class GameValidator {
 public:
-  GameValidator(std::vector<std::string> &&records);
+  GameValidator(const std::vector<std::string> &records);
   void ValidateRecordsAgainstConfig(
       std::map<std::string, unsigned int> &&configuration);
 

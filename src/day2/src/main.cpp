@@ -2,6 +2,7 @@
 
 #include "FileReader.h"
 #include "GameValidator.h"
+#include "MinimumCubesCalculator.h"
 #include "main_include.h"
 
 static constexpr char fileName[] = "../src/input/input1.txt";
@@ -20,7 +21,7 @@ int main() {
       {"blue", 14},
   };
 
-  auto validator = GameValidator{std::move(lines)};
+  auto validator = GameValidator{lines};
   validator.ValidateRecordsAgainstConfig(std::move(configuration));
 
   const auto totRecords = validator.GetNumRecords();
@@ -32,6 +33,12 @@ int main() {
             << std::endl;
 
   std::cout << "Summed IDs: " << idSum << std::endl;
+
+  auto calculator = MinimumCubesCalculator(lines);
+  calculator.CalculatePowersPerGame();
+  const auto powersSum = calculator.GetPowerSum();
+
+  std::cout << "Summed powers: " << powersSum << std::endl;
 
   return 0;
 }
