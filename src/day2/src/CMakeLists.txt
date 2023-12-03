@@ -3,7 +3,7 @@ project(day2)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-add_executable(day2 main.cpp GameValidator.cpp GameRecord.cpp)
+add_executable(day2 main.cpp GameValidator.cpp GameRecord.cpp GameRecordParser.cpp)
 
 target_include_directories(${PROJECT_NAME}
 	PUBLIC ${PROJECT_SOURCE_DIR})
@@ -12,7 +12,7 @@ target_compile_features(day2 PUBLIC cxx_std_20)
 
 enable_testing()
 
-add_executable(main_test main_test.cpp GameValidator.cpp GameRecord.cpp)
+add_executable(main_test main_test.cpp GameValidator.cpp GameRecord.cpp GameRecordParser.cpp)
 target_include_directories(${PROJECT_NAME}
 	PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(main_test GTest::gtest_main)

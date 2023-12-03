@@ -1,13 +1,16 @@
 #include <algorithm>
-#include <charconv>
 #include <iostream>
 #include <string_view>
 
+#include "GameRecordParser.h"
 #include "GameValidator.h"
 
 GameValidator::GameValidator(std::vector<std::string> &&inRecords) {
   for (const auto &rawRecord : inRecords) {
-    records.emplace_back(GetParsedRecord((rawRecord)));
+    GameRecordParser parser{rawRecord};
+    if (parser.Parse()) {
+      records.emplace_back(parser.MakeGameRecord());
+    }
   }
 }
 
@@ -27,35 +30,26 @@ GameRecord GameValidator::GetParsedRecord(const std::string_view record) const {
 
 unsigned int
 GameValidator::GetParsedGameID(const std::string_view record) const {
-  static const std::string GameTag{"Game"};
-  static const std::string Digits{"0123456789"};
-  const auto start{record.find(GameTag)};
-  const auto end{record.find(':')};
-
-  unsigned int parsedId{0};
-  if (start != record.npos && end != record.npos) {
-    const auto idStart = start + GameTag.length();
-    const auto idLength = end - idStart;
-
-    if (idLength > 0) {
-      const auto id{record.substr(idStart, idLength)};
-
-      const auto actualStart = id.find_first_of(Digits);
-      const auto actualEnd = id.find_last_of(Digits);
-
-      const auto updatedId{id.substr(actualStart, actualEnd)};
-
-      // TODO: this may return an error, hence we should manage it.
-      std::from_chars(updatedId.data(), updatedId.data() + updatedId.size(),
-                      parsedId);
-    }
-  }
-
-  return parsedId;
+  // TODO
+  return 0;
 }
 
 std::vector<RevealedSet>
 GameValidator::GetParsedRevealedSets(const std::string_view record) const {
+  std::vector<RevealedSet> sets{};
+  const auto start = record.find(':');
+
+  if (start != record.npos && (start + 1 < record.length())) {
+    const auto setStart = start + 1;
+    sets = ParseRevealedSetsFromRecord(record, setStart);
+  }
+
+  return sets;
+}
+
+std::vector<RevealedSet>
+GameValidator::ParseRevealedSetsFromRecord(const std::string_view record,
+                                           size_t setStart) const {
   return {};
 }
 

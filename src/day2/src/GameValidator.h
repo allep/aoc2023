@@ -1,3 +1,5 @@
+#pragma once
+
 #include <map>
 #include <string>
 #include <string_view>
@@ -17,6 +19,9 @@ private:
   unsigned int GetParsedGameID(const std::string_view record) const;
   std::vector<RevealedSet>
   GetParsedRevealedSets(const std::string_view record) const;
+  std::vector<RevealedSet>
+  ParseRevealedSetsFromRecord(const std::string_view record,
+                              size_t setStart) const;
 
 private:
   std::vector<GameRecord> records{};
