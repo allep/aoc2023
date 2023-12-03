@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "GameRecord.h"
 
 GameRecord::GameRecord(unsigned int inGameID) : gameID{inGameID} {}
@@ -5,6 +7,8 @@ GameRecord::GameRecord(unsigned int inGameID) : gameID{inGameID} {}
 void GameRecord::AddRevealedSet(RevealedSet &&revealedSet) {
   revealedSets.emplace_back(std::move(revealedSet));
 }
+
+unsigned int GameRecord::GetGameID() const { return gameID; }
 
 unsigned int GameRecord::GetNumberByType(const std::string &type) const {
   unsigned int maxNumber{0};
@@ -16,5 +20,6 @@ unsigned int GameRecord::GetNumberByType(const std::string &type) const {
       }
     }
   }
+
   return maxNumber;
 }

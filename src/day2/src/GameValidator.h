@@ -1,5 +1,6 @@
 #include <map>
 #include <string>
+#include <string_view>
 #include <vector>
 
 #include "GameRecord.h"
@@ -13,9 +14,12 @@ public:
 
 private:
   GameRecord GetParsedRecord(const std::string_view record) const;
+  unsigned int GetParsedGameID(const std::string_view record) const;
+  std::vector<RevealedSet>
+  GetParsedRevealedSets(const std::string_view record) const;
 
 private:
   std::vector<GameRecord> records{};
-  std::vector<std::string> validRecords{};
+  std::vector<GameRecord> validRecords{};
   std::map<std::string, unsigned int> configuration{};
 };
